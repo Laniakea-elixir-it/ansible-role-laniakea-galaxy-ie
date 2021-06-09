@@ -1,5 +1,5 @@
 ---
 
-- include_file: users.yml
+- include_tasks: users.yml
 
-- include_file: install.yml
+- include_tasks: install.yml
