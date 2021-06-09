@@ -2,6 +2,6 @@
 - name: Add user to group
   user:
     name: galaxy
-    group: docker
+    groups: galaxy,docker
   become_user: root
   become_method: sudo
