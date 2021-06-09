@@ -5,4 +5,6 @@ galaxy_install_dir: /home/galaxy/galaxy
 
 galaxy_server_dir: '{{ galaxy_install_dir }}/server'
 
+galaxy_user: galaxy
+
 export_dir: /export
