@@ -3,3 +3,5 @@
 - include_tasks: users.yml
 
 - include_tasks: install.yml
+  become_user: '{{ galaxy_user }}'
+  become: true

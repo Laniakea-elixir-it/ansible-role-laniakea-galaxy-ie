@@ -1,14 +1,10 @@
 ---
 - name: Activate virtual env, install and repair npm
-  become: true
-  become_user: root
   shell: 
     chdir: '{{ galaxy_install_dir }}'
     cmd: . venv/bin/activate; cd '{{ galaxy_server_dir }}/lib/galaxy/web/proxy/js'; npm install; npm audit fix
 
-- name: copy ini.sample to ini
-  become: true 
-  become_user: root
+- name: Copy ini.sample to ini
   copy:
     src: '{{ galaxy_server_dir }}/config/plugins/interactive_environments/{{ item }}/config/{{ item }}.ini.sample'
     dest: '{{ galaxy_server_dir }}/config/plugins/interactive_environments/{{ item }}/config/{{ item }}.ini'
@@ -18,8 +14,6 @@
     - rstudio
 
 - name: Copy allowed_images.yml.sample to allowed_images.yml
-  become: true 
-  become_user: root
   copy:
     src: '{{ galaxy_server_dir }}/config/plugins/interactive_environments/{{ item }}/config/allowed_images.yml.sample'
     dest: '{{ galaxy_server_dir }}/config/plugins/interactive_environments/{{ item }}/config/allowed_images.yml'
@@ -52,6 +46,8 @@
   pip:
     name: docker-py
     state: present
+  become_user: root
+  become_method: sudo
 
 - name: Pull selected docker images
   docker_image:
@@ -65,3 +61,5 @@
   service:
     name: galaxy
     state: restarted
+  become_user: root
+  become_method: sudo
