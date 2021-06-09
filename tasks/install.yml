@@ -17,7 +17,7 @@
     - jupyter
     - rstudio
 
-- name: .ini.sample to .ini
+- name: Copy allowed_images.yml.sample to allowed_images.yml
   become: true 
   become_user: root
   copy:
@@ -28,28 +28,32 @@
     - jupyter
     - rstudio
 
-- name: interactive configuration
-  lineinfile:
+- name: Interactive environment configuration
+  ini_file:
     path: '{{ galaxy_server_dir }}/config/plugins/interactive_environments/{{ item.name }}/config/{{ item.name }}.ini'
-    regexp: '{{ item.regexp }}'
-    line: '{{ item.line }}'
+    section: '{{ item.section }}'
+    option: '{{ item.option }}'
+    value: '{{ item.value}}'
   with_items:
-    - { name: jupyter , regexp: "#use_volumes = True" , line: "use_volumes = False" }
-    - { name: rstudio , regexp: "#use_volumes = True" , line: "use_volumes = False" }
-    - { name: jupyter , regexp: "#wx_tempdir = False" , line: "wx_tempdir = True"  }
-    - { name: rstudio , regexp: "#wx_tempdir = False" , line: "wx_tempdir = True"  }
+    - { name: jupyter , section: "docker", option: "use_volumes", value: "False" }
+    - { name: rstudio , section: "docker", option: "use_volumes", value: "False" }
+    - { name: jupyter , section: "docker", option: "wx_tempdir", value: "True"  }
+    - { name: rstudio , section: "docker", option: "wx_tempdir", value: "True"  }
 
-- name: new allowed image file jupyter
+# Current Jupyter image is not working by default.
+# An issue has been opened.
+# https://github.com/bgruening/docker-jupyter-notebook/issues/50
+- name: New allowed image file jupyter
   copy:
     src: jupyter_allowed_images.yml
     dest: '{{ galaxy_server_dir }}/config/plugins/interactive_environments/jupyter/config/allowed_images.yml'
 
-- name: install docker.py
+- name: Ensure docker.py is installed
   pip:
     name: docker-py
     state: present
 
-- name: pull selected docker images
+- name: Pull selected docker images
   docker_image:
     name: '{{ item }}' 
     source: pull
