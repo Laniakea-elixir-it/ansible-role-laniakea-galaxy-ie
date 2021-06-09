@@ -1,10 +1,9 @@
 ---
+# Run this as "user" galaxy
 - name: Activate virtual env, install and repair npm
   shell: 
     chdir: '{{ galaxy_install_dir }}'
     cmd: . venv/bin/activate; cd '{{ galaxy_server_dir }}/lib/galaxy/web/proxy/js'; npm install; npm audit fix
-  become_user: root
-  become_method: sudo
 
 - name: Copy ini.sample to ini
   copy:
