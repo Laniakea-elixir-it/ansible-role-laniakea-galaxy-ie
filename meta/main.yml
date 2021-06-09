@@ -1,0 +1,22 @@
+galaxy_info:
+  author: Marco Antonio Tangaro, Pietro Mandreoli
+  description: Enable Galaxy Interactive environemts
+  company: IBIOM-CNR, UniMi
+  role_name: galaxy_ie
+  min_ansible_version: 2.9
+  license: GPLv3
+  platforms:
+    #- name: Ubuntu
+    #  versions:
+    #    - Xenial
+    - name: EL
+      versions:
+        - 7
+  galaxy_tags:
+    - galaxy
+    - web
+
+dependencies:
+  - role: indigo-dc.docker
+    vars:
+      docker_config:  { "data-root": "{{ export_dir }}/docker_image", }  

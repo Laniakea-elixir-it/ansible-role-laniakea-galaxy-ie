@@ -1,0 +1,25 @@
+---
+#- image: quay.io/bgruening/docker-jupyter-notebook:latest
+#  description: |
+#        The Jupyter notebook is the next iteration of IPython, allowing
+#        analysis in many different languages. This image features the Python,
+#        R, Julia, Haskell, Bash kernels and many scientific analysis stacks for
+#        each.
+#- image: quay.io/bgruening/docker-jupyter-notebook:17.09
+#  description: |
+#        The Jupyter notebook is the next iteration of IPython, allowing
+#        analysis in many different languages. This image features the Python,
+#        R, Julia, Haskell, Bash kernels and many scientific analysis stacks for
+#        each.
+#- image: quay.io/bgruening/docker-jupyter-notebook:2021-03-05
+#  description: |
+#        The Jupyter notebook is the next iteration of IPython, allowing
+#        analysis in many different languages. This image features the Python,
+#        R, Julia, Haskell, Bash kernels and many scientific analysis stacks for
+#        each.
+- image: quay.io/laniakeacloud/docker-jupyter-notebook:v1.0.0-beta1
+  description: |
+        The Jupyter notebook is the next iteration of IPython, allowing
+        analysis in many different languages. This image features the Python,
+        R, Julia, Haskell, Bash kernels and many scientific analysis stacks for
+        each.
