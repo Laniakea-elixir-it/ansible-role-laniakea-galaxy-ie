@@ -44,10 +44,10 @@
     src: jupyter_allowed_images.yml
     dest: '{{ galaxy_server_dir }}/config/plugins/interactive_environments/jupyter/config/allowed_images.yml'
 
-#- name: install docker.py
-#  pip:
-#    name: docker-py
-#    state: present
+- name: install docker.py
+  pip:
+    name: docker-py
+    state: present
 
 - name: pull selected docker images
   docker_image:
