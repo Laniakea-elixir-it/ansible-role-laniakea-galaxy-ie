@@ -57,10 +57,3 @@
   with_items:
     - quay.io/laniakeacloud/docker-jupyter-notebook:v1.0.0-beta1
     - quay.io/erasche/docker-rstudio-notebook:19.05
-
-- name: restart galaxy
-  service:
-    name: galaxy
-    state: restarted
-  become_user: root
-  become_method: sudo
