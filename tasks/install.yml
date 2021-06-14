@@ -43,12 +43,12 @@
     src: jupyter_allowed_images.yml
     dest: '{{ galaxy_server_dir }}/config/plugins/interactive_environments/jupyter/config/allowed_images.yml'
 
-- name: Ensure docker.py is installed
-  pip:
-    name: docker-py
-    state: present
-  become_user: root
-  become_method: sudo
+#- name: Ensure docker.py is installed
+#  pip:
+#    name: docker-py
+#    state: present
+#  become_user: root
+#  become_method: sudo
 
 - name: Pull selected docker images
   docker_image:
