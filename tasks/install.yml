@@ -50,10 +50,24 @@
 #  become_user: root
 #  become_method: sudo
 
-- name: Pull selected docker images
-  docker_image:
-    name: '{{ item }}' 
-    source: pull
-  with_items:
+# Workaround for CentOS7+Python2+docker python package
+# Python 2 is unable to import docker nor docker-py module
+# resulting in "ImportError: No module named selectors" error.
+# Python 3 + docker is fine.
+# We avoid to use "ansible_python_iterpreter" variable set to "python3"
+# to correctly run other roles.
+- name: '[EL] Pull selected docker images'
+  command: 'docker pull {{ item }}'
+  loop:
     - quay.io/laniakeacloud/docker-jupyter-notebook:v1.0.0-beta1
     - quay.io/erasche/docker-rstudio-notebook:19.05
+  when: ansible_os_family == "RedHat"
+
+- name: '[Ubuntu] Pull selected docker images'
+  docker_image:
+    name: '{{ item }}'
+    source: pull
+  loop:
+    - quay.io/laniakeacloud/docker-jupyter-notebook:v1.0.0-beta1
+    - quay.io/erasche/docker-rstudio-notebook:19.05
+  when: ansible_os_family == "Debian"
